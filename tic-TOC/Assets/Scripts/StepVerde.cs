@@ -27,7 +27,7 @@ public class StepVerde : MonoBehaviour
         if (scriptSerial.baldosaActivo == true)
         {
             animator.SetInteger("baldosasPisadas", traduceBaldosas);        
-        }
+        } 
 
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -39,12 +39,15 @@ public class StepVerde : MonoBehaviour
             {
                 spriteRenderer.sprite = GrillaVerde;
             }
-            if (scriptSerial.cuantoBaldosa <= 0)
+            if (scriptSerial.cuantoBaldosa == 0)
             {
                 scriptSerial.tutorial = false;
                 Debug.Log("FIN TUTORIAL");
                 Debug.Log(scriptSerial.tutorial);
             }
         }
+
+        
     }
+
 }

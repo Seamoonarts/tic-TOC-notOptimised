@@ -21,9 +21,12 @@ public class Serial : MonoBehaviour
   //  float tiempo = 0f;
   //  float tiempoDelay = 0.4f; //Leer cada 2 seg el SuenaFono() en el Update
     float tiempoElementos = 0f;
-    float tiempoElementosDelay = 15f;
+    float tiempoElementosDelay = 12f;
     public bool tutorial = true;
-    bool tutoLuzTerminado = false;
+    //bool tutoLuzTerminado = false;
+    int leemeDoUnaVez = 1;
+
+
 
     public void Awake() {
         arduinoPort.BaudRate = 9600;
@@ -52,17 +55,22 @@ public class Serial : MonoBehaviour
         CaosNoActivo();
 
         timerFono = 0;
-        atendeElFono = 10f;
+        atendeElFono = 15f;
         timerLuz = 0;
-        apagaLuz = 10f;
+        apagaLuz = 15f;
+        leemeDoUnaVez = 1;
         RandomFono();
         RandomLuz();
         RandomBaldosa();
         SuenaFono();  //ESTE TIENE QUE SER AL PISAR CUALQUIER BALDOSA DESPUES
 
         telefonoActivo = true;
+        luzActivo = false;
+        baldosaActivo = false;
         tutorial = true;
-        tutoLuzTerminado = false;
+
+        InvokeRepeating("SuenaFono", 0, 1);
+        InvokeRepeating("PrendeLuz", 0, 1);
     }
 
     void Update() {
@@ -94,9 +102,7 @@ public class Serial : MonoBehaviour
             SilencioBruno();
             PressBoton();
             PressSwitch();
-            //SuenaFono();
-            PrendeLuz();
-            //Debug.Log(luzActivo);   //////////////////   DEBUG ///////////////////////////////////
+            //Debug.Log(cuantoBaldosa);   //////////////////   DEBUG ///////////////////////////////////
 
             if (telefonoActivo == true)
             {
@@ -105,14 +111,6 @@ public class Serial : MonoBehaviour
             else {
                 timerFono = 0;
             }
-
-         /*   tiempo = tiempo + 1f * Time.deltaTime;  // delay para no reventar a mensajes de fono a arduino
-            if (tiempo >= tiempoDelay)
-            {   
-                tiempo = 0f;
-            }   */
-
-            Falsos();
 
             if (Input.GetKeyDown(KeyCode.F1))
             {
@@ -129,42 +127,41 @@ public class Serial : MonoBehaviour
 
             if (tutorial == false)
             {
-                PrendeLuz();
-                Invoke("SuenaFono", 5);   /// ESTO VA A TRAER PROBLEMAS CUANDO SE DESACTIVE EL TUTORIAL PONER DENTRO DE UN IF
-                //AGREGAR EL VOLVERLOS VERDADEROS O SINO NO VA A FUNCIONAR
+                while (leemeDoUnaVez == 1) {
+                    luzActivo = true;
+                    telefonoActivo = true;
+                    Invoke("PrendeLuz", 0);
+                    Invoke("SuenaFono", 5);
+                    Invoke("BaldosaTrue", 6);
+                    leemeDoUnaVez = 2;
+                }
+                
+                
 
                 tiempoElementos = tiempoElementos + 1f * Time.deltaTime;
                 if (tiempoElementos >= tiempoElementosDelay)
                 {
-                    tiempoElementos = 0f;
-                    tiempoElementosDelay = 10f;
                     if (luzActivo == false)
                     {
                         RandomLuz();
-                        Invoke("PrendeLuz", cuantoLuz);
+                        //Invoke("PrendeLuz", cuantoLuz);
                         luzActivo = true;
                     }
                     if (telefonoActivo == false)
                     {
                         RandomFono();
-                        Invoke("SuenaFono", cuantoFono);
+                        //Invoke("SuenaFono", cuantoFono);
                         telefonoActivo = true;
                     }
+                    if (baldosaActivo == false)
+                    {
+                        RandomBaldosa();
+                        baldosaActivo = true;
+                    }
+                    tiempoElementos = 0f;
+                    tiempoElementosDelay = 8f;
                 }
             } 
-            else if (tutorial == true && telefonoActivo == false && baldosaActivo == false)
-            {
-                luzActivo = true;
-            }      // Tutorial
-            if (tutoLuzTerminado == true) {
-                baldosaActivo = true;
-                luzActivo = false;
-                arduinoPort.WriteLine("fono0");
-                arduinoPort.WriteLine("luz0");
-                Debug.Log("Baldosa activa");
-            }                                                        // Fin tutorial
-            
-
 
 
         } else // de obraactiva == true
@@ -177,40 +174,19 @@ public class Serial : MonoBehaviour
     
     void SuenaFono()
     {
-        if (cuantoFono == 0)
+        if (telefonoActivo)
         {
-            arduinoPort.WriteLine("fono0");
-            Debug.Log("Suena fono0");
-            timerFono = 0 - 2;
-            telefonoActivo = false;
+            arduinoPort.WriteLine("fono" + cuantoFono);
+            if (cuantoFono == 0)
+                {
+                arduinoPort.WriteLine("fono0");
+                Falsos();
+                luzActivo = true;
+                Invoke("PrendeLuz", 3);
+                telefonoActivo = false;
+                }
+            Debug.Log("Suena fono dice: " + cuantoFono);
         }
-        else if (cuantoFono <= 0)
-        {
-            arduinoPort.WriteLine("fono0");
-            cuantoFono = 0;
-            telefonoActivo = false;
-        }
-        else if (cuantoFono == 1)
-        {
-            arduinoPort.WriteLine("fono1");
-            Debug.Log("Suena fono1");
-        }
-        else if (cuantoFono == 2)
-        {
-            arduinoPort.WriteLine("fono2");
-            Debug.Log("Suena fono2");
-        }
-        else if (cuantoFono == 3)
-        {
-            arduinoPort.WriteLine("fono3");
-            Debug.Log("Suena fono3");
-        }
-        else if (cuantoFono == 4)
-        {
-            arduinoPort.WriteLine("fono4");
-            Debug.Log("Suena fono4");
-        } else { }
-        Debug.Log(cuantoFono);
     }
 
     void TimerFono()
@@ -225,45 +201,18 @@ public class Serial : MonoBehaviour
 
     void PrendeLuz()
     {
-        if (cuantoLuz == 0)
+        if (luzActivo)
         {
-            arduinoPort.WriteLine("luz0");
-            Debug.Log("Prende luz0");
-            timerLuz = 0 - 2;
-            luzActivo = false;
-            tutoLuzTerminado = true;
-        }
-        if (cuantoLuz <= 0)
-        {
-            arduinoPort.WriteLine("luz0");
-            cuantoLuz = 0;
-            luzActivo = false;
-        }
-        else if (luzActivo == true)
-        {
-            if (cuantoLuz == 1)
+            arduinoPort.WriteLine("luz" + cuantoLuz);
+            if (cuantoLuz == 0)
             {
-                arduinoPort.WriteLine("luz1");
-                Debug.Log("Prende luz1");
+                arduinoPort.WriteLine("luz0");
+                Falsos();
+                Invoke("BaldosaTrue", 2);  //baldosa
+                luzActivo = false;
+                baldosaActivo = true;
             }
-            else if (cuantoLuz == 2)
-            {
-                arduinoPort.WriteLine("luz2");
-                Debug.Log("Prende luz2");
-            }
-            else if (cuantoLuz == 3)
-            {
-                arduinoPort.WriteLine("luz3");
-                Debug.Log("Prende luz3");
-            }
-            else if (cuantoLuz == 4)
-            {
-                arduinoPort.WriteLine("luz4");
-                Debug.Log("Prende luz4");
-            }
-        }
-        else if (luzActivo == false){
-            arduinoPort.WriteLine("luz0");
+            Debug.Log("Suena luz dice: " + cuantoLuz);
         }
     }
 
@@ -288,9 +237,10 @@ public class Serial : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow) && cuantoFono >= 1)
         {
             cuantoFono = cuantoFono - 1;
-            SuenaFono();
+           
             Debug.Log("Botón teléfono was pressed.");
-            Debug.Log(cuantoFono);
+            //Debug.Log(cuantoFono);
+            SuenaFono();
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow)){
             SuenaFono();
@@ -331,18 +281,21 @@ public class Serial : MonoBehaviour
         cuantoBaldosa = Random.Range(2, 5);
     }
 
+    void BaldosaTrue()
+    {
+        baldosaActivo = true;
+    }
+
 
     void Falsos()
     {
         if (luzActivo == false)
         {
             RandomLuz();
-            arduinoPort.WriteLine("luz0");
         }
         if (telefonoActivo == false)
         {
             RandomFono();
-            arduinoPort.WriteLine("fono0");
         }
         if (baldosaActivo == false) {
             RandomBaldosa();

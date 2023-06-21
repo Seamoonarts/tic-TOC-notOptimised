@@ -42,6 +42,8 @@ public class StepVerde : MonoBehaviour
             if (scriptSerial.cuantoBaldosa == 0)
             {
                 scriptSerial.tutorial = false;
+                scriptSerial.baldosaActivo = false;
+                spriteRenderer.sprite = GrillaVerde;
                 Debug.Log("FIN TUTORIAL");
                 Debug.Log(scriptSerial.tutorial);
             }

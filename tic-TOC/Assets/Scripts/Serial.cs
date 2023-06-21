@@ -10,7 +10,6 @@ public class Serial : MonoBehaviour
     int cuantoLuz = 5;
     public int cuantoBaldosa = 0;
     bool obraActiva = true;
-    bool trabaElAnticaos = false;
     float timerFono;
     float timerLuz;
     float atendeElFono;  // para el caos
@@ -23,7 +22,6 @@ public class Serial : MonoBehaviour
     float tiempoElementos = 0f;
     float tiempoElementosDelay = 12f;
     public bool tutorial = true;
-    //bool tutoLuzTerminado = false;
     int leemeDoUnaVez = 1;
 
 
@@ -104,26 +102,14 @@ public class Serial : MonoBehaviour
             PressSwitch();
             //Debug.Log(cuantoBaldosa);   //////////////////   DEBUG ///////////////////////////////////
 
-            if (telefonoActivo == true)
-            {
-                TimerFono();
-            }    // timer para el caos luego del tutorial
-            else {
-                timerFono = 0;
-            }
+            
 
             if (Input.GetKeyDown(KeyCode.F1))
             {
                 CaosNoActivo();
             }
 
-            if (timerFono >= atendeElFono || timerLuz >= apagaLuz) {
-                trabaElAnticaos = true;
-            }        // traba anti - caos
-            else if (timerFono <= atendeElFono && timerLuz <= apagaLuz)
-            {
-                trabaElAnticaos = false;
-            }
+            
 
             if (tutorial == false)
             {
@@ -135,8 +121,17 @@ public class Serial : MonoBehaviour
                     Invoke("BaldosaTrue", 6);
                     leemeDoUnaVez = 2;
                 }
-                
-                
+
+
+                if (timerFono >= atendeElFono || timerLuz >= apagaLuz) {
+                    CaosActivo();
+                    Debug.Log("Caos activo");
+                }        // traba anti - caos
+                else if (timerFono <= atendeElFono && timerLuz <= apagaLuz)
+                {
+                    CaosNoActivo();
+                    Debug.Log("Caos NO activo");
+                }
 
                 tiempoElementos = tiempoElementos + 1f * Time.deltaTime;
                 if (tiempoElementos >= tiempoElementosDelay)
@@ -144,13 +139,11 @@ public class Serial : MonoBehaviour
                     if (luzActivo == false)
                     {
                         RandomLuz();
-                        //Invoke("PrendeLuz", cuantoLuz);
                         luzActivo = true;
                     }
                     if (telefonoActivo == false)
                     {
                         RandomFono();
-                        //Invoke("SuenaFono", cuantoFono);
                         telefonoActivo = true;
                     }
                     if (baldosaActivo == false)
@@ -167,6 +160,11 @@ public class Serial : MonoBehaviour
         } else // de obraactiva == true
         {
             Debug.Log("Frena obra");
+            baldosaActivo = false;
+            luzActivo = false;
+            telefonoActivo = false;
+            arduinoPort.WriteLine("fono0");
+            arduinoPort.WriteLine("luz0");
             ReactivaObra();
         }
 
@@ -176,6 +174,7 @@ public class Serial : MonoBehaviour
     {
         if (telefonoActivo)
         {
+            timerFono += Time.deltaTime;
             arduinoPort.WriteLine("fono" + cuantoFono);
             if (cuantoFono == 0)
                 {
@@ -184,25 +183,17 @@ public class Serial : MonoBehaviour
                 luzActivo = true;
                 Invoke("PrendeLuz", 3);
                 telefonoActivo = false;
-                }
+                timerFono = 0;
+            }
             Debug.Log("Suena fono dice: " + cuantoFono);
         }
-    }
-
-    void TimerFono()
-    {
-        timerFono += Time.deltaTime;
-    }
-
-    void TimerLuz()
-    {
-        timerLuz += Time.deltaTime;
     }
 
     void PrendeLuz()
     {
         if (luzActivo)
         {
+            timerLuz += Time.deltaTime;
             arduinoPort.WriteLine("luz" + cuantoLuz);
             if (cuantoLuz == 0)
             {
@@ -211,11 +202,11 @@ public class Serial : MonoBehaviour
                 Invoke("BaldosaTrue", 2);  //baldosa
                 luzActivo = false;
                 baldosaActivo = true;
+                timerLuz = 0;
             }
             Debug.Log("Suena luz dice: " + cuantoLuz);
         }
     }
-
 
     void SilencioBruno() {
         if (Input.GetKeyDown(KeyCode.Z))
@@ -286,7 +277,6 @@ public class Serial : MonoBehaviour
         baldosaActivo = true;
     }
 
-
     void Falsos()
     {
         if (luzActivo == false)
@@ -306,30 +296,20 @@ public class Serial : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             obraActiva = true;
-            trabaElAnticaos = false;
             Debug.Log("Reactivo");
-        } else
-        {
-            CaosNoActivo();
         }
     }
 
     public void CaosActivo()
     {
-        if (obraActiva == true)
-        {
             arduinoPort.WriteLine("ca");
             Debug.Log("Arduino escucha caos activo");
-        }
     }
 
     public void CaosNoActivo()
     {
-        if (obraActiva == true && trabaElAnticaos == false)
-        {
              arduinoPort.WriteLine("cd");
-             Debug.Log("Arduino desactivame el motor carajo");
-        }
+             Debug.Log("Arduino desactivame el motor");
     }
 
     public void ClosePort() {

@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColorRojaC : MonoBehaviour
+public class ColorVerdeS : MonoBehaviour
 {
     SpriteRenderer m_SpriteRenderer;
     public SpriteRenderer spriteRenderer;
     public Sprite BaldosaRoja;
     public Sprite GrillaRoja;
+    public Sprite GrillaVerde;
 
     public Serial scriptSerial;
+
+    private bool bAct = false;
     int i = 1;
 
     void Start()
@@ -19,7 +22,17 @@ public class ColorRojaC : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.C))
+        bAct = scriptSerial.baldosaActivo;
+        if (bAct)
+        {
+            spriteRenderer.sprite = GrillaRoja;
+        }
+        else
+        {
+            spriteRenderer.sprite = GrillaVerde;
+        }
+
+        if (Input.GetKey(KeyCode.S) && bAct == true)
         {
             spriteRenderer.sprite = BaldosaRoja;
             while (i == 1)
@@ -27,13 +40,13 @@ public class ColorRojaC : MonoBehaviour
                 scriptSerial.CaosActivoParaBaldosa();
                 i = 2;
             }
+
         }
-        else if (Input.GetKeyUp(KeyCode.C))
+        else if (Input.GetKeyUp(KeyCode.S) && bAct == true)
         {
             spriteRenderer.sprite = GrillaRoja;
-            scriptSerial.CaosNoActivo();
             i = 1;
         }
-    }
 
+    }
 }

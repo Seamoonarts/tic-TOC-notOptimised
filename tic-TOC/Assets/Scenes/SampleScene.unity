@@ -152,7 +152,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4634932
 MonoBehaviour:
@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cuantoBaldosa: 0
+  timerBaldosa: 0
   baldosaActivo: 0
   tutorial: 1
 --- !u!1 &124999078
@@ -216,6 +217,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 124999081}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!212 &124999081
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -441,6 +443,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 228949938}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!212 &228949938
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -539,6 +542,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 329783004}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!212 &329783004
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -801,6 +805,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 508739950}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!212 &508739950
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -933,7 +938,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &601623669
 GameObject:
@@ -1081,6 +1086,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 671294469}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!212 &671294469
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1262,6 +1268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 952046807}
   - component: {fileID: 952046808}
+  - component: {fileID: 952046809}
   m_Layer: 0
   m_Name: Baldosa S
   m_TagString: Untagged
@@ -1334,6 +1341,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &952046809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952046806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f13e6f124f142d4384d1817575a80db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 952046808}
+  BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
+  GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  GrillaVerde: {fileID: 21300000, guid: 2abcdde1ad8d4314fb2318670ca05c7d, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!1 &1071961634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1381,6 +1405,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1071961637}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!212 &1071961637
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1561,6 +1586,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1204262486}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!212 &1204262486
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1643,7 +1669,7 @@ Transform:
   - {fileID: 795255176}
   - {fileID: 188358890}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1313885285
 GameObject:
@@ -1895,6 +1921,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1569786745}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!212 &1569786745
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1993,6 +2020,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1616560978}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!212 &1616560978
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2091,6 +2119,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1738285959}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!212 &1738285959
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2189,6 +2218,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1754486680}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!212 &1754486680
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2240,6 +2270,74 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1765873136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1765873138}
+  - component: {fileID: 1765873137}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1765873137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765873136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5509b5be52886e498708dcdfbb81197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - nombre: Base
+    clip: {fileID: 8300000, guid: 145da2034dd26744db40ab311609a939, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - nombre: Caos
+    clip: {fileID: 8300000, guid: 7a7ae861eb241b746aabc22b7a52e004, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - nombre: Perdicion
+    clip: {fileID: 8300000, guid: b63881c6638758c418215410a0f298e8, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - nombre: Llamada
+    clip: {fileID: 8300000, guid: dd7b30867ced743478e26b028109f8c6, type: 3}
+    volume: 0.153
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+--- !u!4 &1765873138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765873136}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1859660563
 GameObject:
   m_ObjectHideFlags: 0
@@ -2287,6 +2385,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1859660566}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!212 &1859660566
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2385,6 +2484,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1878511339}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!212 &1878511339
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2483,6 +2583,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1907084727}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!212 &1907084727
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2544,6 +2645,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1929612625}
   - component: {fileID: 1929612626}
+  - component: {fileID: 1929612627}
   m_Layer: 0
   m_Name: Baldosa G
   m_TagString: Untagged
@@ -2616,6 +2718,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1929612627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929612624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2791b3006ab01f4095bdf74ca8ffbbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1929612626}
+  BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
+  GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  GrillaVerde: {fileID: 21300000, guid: 2abcdde1ad8d4314fb2318670ca05c7d, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!1 &2116740649
 GameObject:
   m_ObjectHideFlags: 0

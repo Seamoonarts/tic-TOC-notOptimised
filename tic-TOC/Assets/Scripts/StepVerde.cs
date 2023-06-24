@@ -26,26 +26,24 @@ public class StepVerde : MonoBehaviour
         traduceBaldosas = scriptSerial.cuantoBaldosa;
         if (scriptSerial.baldosaActivo == true)
         {
-            animator.SetInteger("baldosasPisadas", traduceBaldosas);        
-        } 
-
+            animator.SetInteger("baldosasPisadas", traduceBaldosas);
+        }
+        else { 
+            animator.SetInteger("baldosasPisadas", 0);
+        }
+        
         if (Input.GetKeyDown(KeyCode.M))
         {
             if (scriptSerial.baldosaActivo == true)
             {
                 scriptSerial.cuantoBaldosa = scriptSerial.cuantoBaldosa - 1;
             }
-            else if (Input.GetKeyUp(KeyCode.M))
-            {
-                spriteRenderer.sprite = GrillaVerde;
-            }
             if (scriptSerial.cuantoBaldosa == 0)
             {
-                scriptSerial.tutorial = false;
                 scriptSerial.baldosaActivo = false;
+                scriptSerial.tutorial = false;
+                scriptSerial.timerBaldosa = 0;
                 spriteRenderer.sprite = GrillaVerde;
-                Debug.Log("FIN TUTORIAL");
-                Debug.Log(scriptSerial.tutorial);
             }
         }
 

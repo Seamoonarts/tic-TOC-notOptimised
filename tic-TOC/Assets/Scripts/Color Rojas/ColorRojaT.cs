@@ -9,30 +9,21 @@ public class ColorRojaT : MonoBehaviour
     public Sprite BaldosaRoja;
     public Sprite GrillaRoja;
 
-    public Serial scriptSerial;
-    int i = 1;
-
     void Start()
     {
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             spriteRenderer.sprite = BaldosaRoja;
-            while (i == 1)
-            {
-                scriptSerial.CaosActivoParaBaldosa();
-                i = 2;
-            }
         }
         else if (Input.GetKeyUp(KeyCode.T))
         {
             spriteRenderer.sprite = GrillaRoja;
-            scriptSerial.CaosNoActivo();
-            i = 1;
         }
     }
 }

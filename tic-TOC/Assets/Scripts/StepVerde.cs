@@ -18,9 +18,6 @@ public class StepVerde : MonoBehaviour
         traduceBaldosas = scriptSerial.cuantoBaldosa;
     }
 
-    // scriptSerial.contadorPisadas;
-    // spriteRenderer.sprite = BaldosaStep;
-
     void Update()
     {
         traduceBaldosas = scriptSerial.cuantoBaldosa;
@@ -36,7 +33,7 @@ public class StepVerde : MonoBehaviour
         {
             if (scriptSerial.baldosaActivo == true)
             {
-                scriptSerial.cuantoBaldosa = scriptSerial.cuantoBaldosa - 1;
+                scriptSerial.cuantoBaldosa = 0;
             }
             if (scriptSerial.cuantoBaldosa == 0)
             {

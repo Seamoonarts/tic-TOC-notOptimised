@@ -8,8 +8,8 @@ public class Serial : MonoBehaviour
     SerialPort arduinoPort = new SerialPort("COM3");
     public delegate void EstadoInstalacion();
     private EstadoInstalacion estadoInstalacion;
-    int cuantoFono = 0;
-    int cuantoLuz = 5;
+    int cuantoFono = 2; 
+    int cuantoLuz = 1;
     public int cuantoBaldosa = 0;
     float timerFono;
     float timerLuz;
@@ -30,15 +30,24 @@ public class Serial : MonoBehaviour
     int leemeCAUnaVez;
     //int p = 1;
 
-    int timepoTotalObra = 180;
-    int tiempoCaosIntenso = 100;
-    float repeticionElementos = 20f;
+    int timepoTotalObra = 90;
+    int tiempoCaosIntenso = 60;
+    float repeticionElementos = 8f;
 
     SpriteRenderer m_SpriteRenderer;
     public SpriteRenderer spriteRenderer;
     public Sprite FondoNegro;
     public Sprite FondoVacio;
 
+    public bool baldosaU = false;
+    public bool baldosaV = false;
+    public bool baldosaX = false;
+    public bool baldosaY = false;
+
+    public bool baldosaA = false;
+    public bool baldosaB = false;
+    public bool baldosaD = false;
+    public bool baldosaE = false;
 
     public void Awake() {
         arduinoPort.BaudRate = 9600;
@@ -67,20 +76,21 @@ public class Serial : MonoBehaviour
         CaosNoActivo();
 
         timerFono = 0f;
-        atendeElFono = 15f;  
+        atendeElFono = 10f;  
         timerLuz = 0f;
-        apagaLuz = 15f;
+        apagaLuz = 10f;
         timerBaldosa = 0f;
-        baldosaFuePisada = 15f;
+        baldosaFuePisada = 10f;
         leemeDoUnaVez = 1;
         leemePerdiUnaVez = 1;
         leemeTutoUnaVez = 1;
         leemeInaUnaVez = 1;
         leemeCDUnaVez = 1;
         leemeCAUnaVez = 1;
-        RandomFono();
+      /*  RandomFono();
         RandomLuz();
-        RandomBaldosa();
+        RandomBaldosa();*/
+      
 
         telefonoActivo = true;
         luzActivo = false;
@@ -89,8 +99,8 @@ public class Serial : MonoBehaviour
 
         intenso = false;
 
-        InvokeRepeating("SuenaFono", 0, 1);
-        InvokeRepeating("PrendeLuz", 0, 1);
+      // InvokeRepeating("SuenaFono", 0, 1);
+       // InvokeRepeating("PrendeLuz", 0, 1);
     }
 
     void Update() {
@@ -123,47 +133,139 @@ public class Serial : MonoBehaviour
         }
 
         estadoInstalacion();
-        PressBoton();
-        PressSwitch();
+      //  PressBoton();
+      //  PressSwitch();
     }
     
+    void SuenaFonoTutorial()
+    {
+        baldosaV = true;
+        if (Input.GetKey(KeyCode.V))  
+        {
+            telefonoActivo = false;
+            luzActivo = true;
+        }
+    }
+    
+
+    void PrendeLuzTutorial()
+    {
+        baldosaA = true;
+        arduinoPort.WriteLine("luz2");
+        if (Input.GetKey(KeyCode.A))
+        {
+            Debug.Log("apreto a");
+            luzActivo = false;
+            cuantoLuz = 0;
+            baldosaActivo = true;
+        }
+    }
+    
+    void PrendeBaldosaTutorial()
+    {
+        Debug.Log("step tuto");
+        luzActivo = false;
+        cuantoBaldosa = 2;
+        if (Input.GetKey(KeyCode.M))
+        {
+            baldosaActivo = false;
+            cuantoBaldosa = 0;
+            estadoInstalacion = EstadoNormal;
+        }
+    }
+
+
     void SuenaFono()
     {
         if (telefonoActivo)
         {
-            arduinoPort.WriteLine("fono" + cuantoFono);
-            if (cuantoFono == 0)
-                {
-                arduinoPort.WriteLine("fono0");
-                FindObjectOfType<AudioManager>().Pause("Llamada");
-                Falsos();
-                luzActivo = true;
-                Invoke("PrendeLuz", 3);
-                telefonoActivo = false;
-                timerFono = 0;
+            if (cuantoFono == 1)
+            {
+                baldosaU = true;
             }
-            //Debug.Log("Suena fono dice: " + cuantoFono);
+            if (cuantoFono == 2)
+            {
+                baldosaV = true;
+            }
+            if (cuantoFono == 3)
+            {
+                baldosaX = true;
+            }
+            if (cuantoFono == 4)
+            {
+                baldosaY = true;
+            }
+
+
+            /*       //   arduinoPort.WriteLine("fono" + cuantoFono);
+                   if (cuantoFono == 0)
+                   {
+                       //  arduinoPort.WriteLine("fono0");
+                       FindObjectOfType<AudioManager>().Pause("Llamada");
+                       //  Falsos();
+                       luzActivo = true;
+                       Invoke("PrendeLuz", 3);
+                       telefonoActivo = false;
+                       timerFono = 0;
+                   }
+                   //Debug.Log("Suena fono dice: " + cuantoFono);*/
+        }
+        else {
+            FindObjectOfType<AudioManager>().Pause("Llamada");
+            Falsos();
+            luzActivo = true;
+            Invoke("PrendeLuz", 3);
+            timerFono = 0;
         }
     }
+    
 
     void PrendeLuz()
     {
         if (luzActivo)
         {
-            arduinoPort.WriteLine("luz" + cuantoLuz);
-            if (cuantoLuz == 0)
+            // arduinoPort.WriteLine("luz" + cuantoLuz);
+         /*   if (cuantoLuz == 0)
             {
-                arduinoPort.WriteLine("luz0");
-                Falsos();
+                //   arduinoPort.WriteLine("luz0");
+                //  Falsos();
                 Invoke("BaldosaTrue", 2);  //baldosa
                 luzActivo = false;
                 BaldosaTrue();
                 timerLuz = 0;
+            }*/
+
+            arduinoPort.WriteLine("luz4");
+            if (cuantoFono == 1)
+            {
+                baldosaA = true;
             }
-            //Debug.Log("Suena luz dice: " + cuantoLuz);
+            if (cuantoFono == 2)
+            {
+                baldosaB = true;
+            }
+            if (cuantoFono == 3)
+            {
+                baldosaD = true;
+            }
+            if (cuantoFono == 4)
+            {
+                baldosaE = true;
+            }
+        }
+        
+        else if (!baldosaA && !baldosaB && !baldosaD && !baldosaE)
+        {
+            Debug.Log("Luz off");
+            arduinoPort.WriteLine("luz0");
+            Invoke("BaldosaTrue", 2);  //baldosa
+            Falsos();
+            luzActivo = false;
+            timerLuz = 0;
         }
     }
 
+    /*
     void PressBoton()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow) && cuantoFono >= 1)
@@ -193,19 +295,22 @@ public class Serial : MonoBehaviour
 
     }
 
+    */
+
     void RandomLuz() {
-        cuantoLuz = Random.Range(2, 5);
+        cuantoLuz = Random.Range(1, 5);
     }
 
     void RandomFono()
     {
-        cuantoFono = Random.Range(2, 5);
+         cuantoFono = Random.Range(1, 5);
     }
 
-    void RandomBaldosa()
+   /* void RandomBaldosa()
     {
-        cuantoBaldosa = Random.Range(2, 5);
+      cuantoBaldosa = Random.Range(1, 4);
     }
+    */
 
     void BaldosaTrue()
     {
@@ -222,16 +327,17 @@ public class Serial : MonoBehaviour
         {
             RandomFono();
         }
-        if (baldosaActivo == false) {
+     /*   if (baldosaActivo == false) {
             RandomBaldosa();
-        }
-    }
+        }*/
+    }  
 
     void RandomsYTruesFono()
     {
         if (telefonoActivo == false)
         {
-            RandomFono();
+            Invoke("RandomFono", 0);
+            Debug.Log("Random Fono=" + cuantoFono);
             telefonoActivo = true;
             FindObjectOfType<AudioManager>().Play("Llamada");
         }
@@ -242,6 +348,7 @@ public class Serial : MonoBehaviour
         if (luzActivo == false)
         {
             RandomLuz();
+            Debug.Log("Random Luz=" + cuantoLuz);
             luzActivo = true;
         }
     }
@@ -250,7 +357,8 @@ public class Serial : MonoBehaviour
     {
         if (baldosaActivo == false)
         {
-            RandomBaldosa();
+            //  RandomBaldosa();
+            cuantoBaldosa = 3;
             baldosaActivo = true;
         }
     }
@@ -261,7 +369,7 @@ public class Serial : MonoBehaviour
             CaosNoActivo();
             RandomFono();
             RandomLuz();
-            RandomBaldosa();
+          //  RandomBaldosa();
 
             estadoInstalacion = EstadoTutorial;
             timerFono = 0f;
@@ -330,7 +438,7 @@ public class Serial : MonoBehaviour
             luzActivo = false;
             telefonoActivo = false;
             intenso = false;
-            arduinoPort.WriteLine("fono0");
+           // arduinoPort.WriteLine("fono0");
             arduinoPort.WriteLine("luz0");
             CaosNoActivo();
             FindObjectOfType<AudioManager>().Stop("Perdicion");
@@ -350,9 +458,16 @@ public class Serial : MonoBehaviour
 
     public void EstadoTutorial()
     {
-        if(tutorial == false)
+        if (telefonoActivo)
         {
-            estadoInstalacion = EstadoNormal;
+            SuenaFonoTutorial();
+        } else if (luzActivo)
+        {
+            Debug.Log("lee luzact");
+            PrendeLuzTutorial();
+        } else if (baldosaActivo)
+        {
+            PrendeBaldosaTutorial();
         }
         
         while (leemeTutoUnaVez == 1)
@@ -371,16 +486,20 @@ public class Serial : MonoBehaviour
         while (leemeDoUnaVez == 1)
         {
             spriteRenderer.sprite = FondoVacio;
-            InvokeRepeating("RandomsYTruesFono", 1f, repeticionElementos);
-            InvokeRepeating("RandomsYTruesLuz", 15f, repeticionElementos);
-            InvokeRepeating("RandomsYTruesBaldosa", 30f, repeticionElementos);
+            InvokeRepeating("RandomFono", 2f, repeticionElementos);
+            InvokeRepeating("RandomLuz", 2f, repeticionElementos);
+            InvokeRepeating("RandomsYTruesFono", 2f, repeticionElementos);
+            InvokeRepeating("RandomsYTruesLuz", 2f, repeticionElementos);
+            InvokeRepeating("RandomsYTruesBaldosa", 14f, repeticionElementos);
+            InvokeRepeating("SuenaFono", 0, 8);
+            InvokeRepeating("PrendeLuz", 0, 10);
+            InvokeRepeating("Falsos", 0, 2);
             Invoke("CaosIntenso", tiempoCaosIntenso);                            //// CAMBIAR LLAMADO FIN DE OBRA E INTENSIDAD CUANDO REGULE LA DURACION DE LA OBRA
             Invoke("LlamoPerdicion", timepoTotalObra);
             leemeDoUnaVez = 2;
             leemeTutoUnaVez = 1;
         }
 
-        Debug.Log(timerBaldosa);
 
         if (timerFono <= atendeElFono && timerLuz <= apagaLuz && timerBaldosa <= baldosaFuePisada)
         {
@@ -413,7 +532,7 @@ public class Serial : MonoBehaviour
             }
         }
 
-        InvokeRepeating("Falsos", 0, 9);
+      
     }
 
 

@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColorRojaU : MonoBehaviour
+public class ColorVerdeV : MonoBehaviour
 {
     SpriteRenderer m_SpriteRenderer;
     public SpriteRenderer spriteRenderer;
-    public Sprite BaldosaRoja;
-    public Sprite GrillaRoja;
+    public Sprite GrillaVerde;
     public Sprite PisaFono;
 
     public Serial scriptSerial;
-    int i = 1;
 
     public delegate void EstadoBaldosa();
     public EstadoBaldosa estadoBaldosa;
@@ -26,40 +24,28 @@ public class ColorRojaU : MonoBehaviour
     void Update()
     {
         estadoBaldosa();
-        if (scriptSerial.baldosaU == true)
+        if (scriptSerial.baldosaV == true)
         {
             estadoBaldosa = EstadoActivo;
-        } 
+        }
     }
 
     void EstadoInactivo()
     {
-        if (Input.GetKey(KeyCode.U))
-        {
-            spriteRenderer.sprite = BaldosaRoja;
-            while (i == 1)
-            {
-                scriptSerial.CaosActivoParaBaldosa();
-                i = 2;
-            }
-        }
-        else if (Input.GetKeyUp(KeyCode.U))
-        {
-            spriteRenderer.sprite = GrillaRoja;
-            scriptSerial.CaosNoActivo();
-            i = 1;
-        }
+        spriteRenderer.sprite = GrillaVerde;
+            
     }
 
     void EstadoActivo()
     {
         spriteRenderer.sprite = PisaFono;
 
-    //    Debug.Log("FonoUActivo");
-        if (Input.GetKey(KeyCode.U))
+       // Debug.Log("FonoVActivo");
+        if (Input.GetKey(KeyCode.V))
         {
             estadoBaldosa = EstadoInactivo;
-            scriptSerial.baldosaU = false;
+            scriptSerial.baldosaV = false;
         }
     }
 }
+

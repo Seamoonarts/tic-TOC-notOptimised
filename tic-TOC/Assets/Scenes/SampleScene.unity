@@ -149,7 +149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4634930}
   m_LocalRotation: {x: -0, y: -0, z: 0.0021562227, w: 0.9999977}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1.0344113, y: 1.0344113, z: 1.0344113}
   m_Children: []
   m_Father: {fileID: 0}
@@ -175,6 +175,14 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4634933}
   FondoNegro: {fileID: 21300000, guid: 7b93b77cda1d1f243b8b53d1668e707c, type: 3}
   FondoVacio: {fileID: 21300000, guid: 40f9e423a233ad6429283608e94bb415, type: 3}
+  baldosaU: 0
+  baldosaV: 0
+  baldosaX: 0
+  baldosaY: 0
+  baldosaA: 0
+  baldosaB: 0
+  baldosaD: 0
+  baldosaE: 0
 --- !u!212 &4634933
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -335,6 +343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 136708499}
   - component: {fileID: 136708500}
+  - component: {fileID: 136708501}
   m_Layer: 0
   m_Name: Baldosa D
   m_TagString: Untagged
@@ -407,6 +416,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &136708501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136708498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49273eb2fbe52434c842655e86049543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 136708500}
+  GrillaVerde: {fileID: 21300000, guid: 2abcdde1ad8d4314fb2318670ca05c7d, type: 3}
+  PisaLuz: {fileID: 21300000, guid: 6671ce54c7281c54b88e01cb6e8b10c1, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!1 &188358889
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,6 +685,7 @@ GameObject:
   m_Component:
   - component: {fileID: 381853375}
   - component: {fileID: 381853376}
+  - component: {fileID: 381853377}
   m_Layer: 0
   m_Name: Baldosa V
   m_TagString: Untagged
@@ -732,6 +758,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &381853377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381853374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc10b13a140e97c44a0cabe3f955a1b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 381853376}
+  GrillaVerde: {fileID: 21300000, guid: 2abcdde1ad8d4314fb2318670ca05c7d, type: 3}
+  PisaFono: {fileID: 21300000, guid: 6671ce54c7281c54b88e01cb6e8b10c1, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!1 &399971721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,6 +1085,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 601623672}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  PisaLuz: {fileID: 21300000, guid: 6671ce54c7281c54b88e01cb6e8b10c1, type: 3}
   scriptSerial: {fileID: 4634932}
 --- !u!212 &601623672
 SpriteRenderer:
@@ -1142,6 +1185,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 671294469}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  PisaFono: {fileID: 21300000, guid: 6671ce54c7281c54b88e01cb6e8b10c1, type: 3}
   scriptSerial: {fileID: 4634932}
 --- !u!212 &671294469
 SpriteRenderer:
@@ -1523,6 +1567,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1149016974}
   - component: {fileID: 1149016975}
+  - component: {fileID: 1149016976}
   m_Layer: 0
   m_Name: Baldosa A
   m_TagString: Untagged
@@ -1595,6 +1640,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1149016976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149016973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899cc72fc9fa04c4e818a8f89b5f7a52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1149016975}
+  GrillaVerde: {fileID: 21300000, guid: 2abcdde1ad8d4314fb2318670ca05c7d, type: 3}
+  PisaLuz: {fileID: 21300000, guid: 6671ce54c7281c54b88e01cb6e8b10c1, type: 3}
+  scriptSerial: {fileID: 4634932}
 --- !u!1 &1170504685
 GameObject:
   m_ObjectHideFlags: 0
@@ -2066,6 +2127,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1569786745}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  PisaLuz: {fileID: 21300000, guid: 6671ce54c7281c54b88e01cb6e8b10c1, type: 3}
   scriptSerial: {fileID: 4634932}
 --- !u!212 &1569786745
 SpriteRenderer:
@@ -2264,6 +2326,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1738285959}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  PisaFono: {fileID: 21300000, guid: 6671ce54c7281c54b88e01cb6e8b10c1, type: 3}
   scriptSerial: {fileID: 4634932}
 --- !u!212 &1738285959
 SpriteRenderer:
@@ -2735,6 +2798,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1907084727}
   BaldosaRoja: {fileID: 21300000, guid: 400d9a3cae432664ab6673c9bd8581b5, type: 3}
   GrillaRoja: {fileID: 21300000, guid: e3ed7c75443a40d4fa200e6917ae5749, type: 3}
+  PisaFono: {fileID: 21300000, guid: 6671ce54c7281c54b88e01cb6e8b10c1, type: 3}
   scriptSerial: {fileID: 4634932}
 --- !u!212 &1907084727
 SpriteRenderer:

@@ -8,16 +8,31 @@ public class ColorRojaY : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Sprite BaldosaRoja;
     public Sprite GrillaRoja;
+    public Sprite PisaFono;
 
     public Serial scriptSerial;
     int i = 1;
 
+    public delegate void EstadoBaldosa();
+    public EstadoBaldosa estadoBaldosa;
+
     void Start()
     {
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        estadoBaldosa = EstadoInactivo;
+
     }
 
     void Update()
+    {
+        estadoBaldosa();
+        if (scriptSerial.baldosaY == true)
+        {
+            estadoBaldosa = EstadoActivo;
+        }
+    }
+
+    void EstadoInactivo()
     {
         if (Input.GetKey(KeyCode.Y))
         {
@@ -33,6 +48,18 @@ public class ColorRojaY : MonoBehaviour
             spriteRenderer.sprite = GrillaRoja;
             scriptSerial.CaosNoActivo();
             i = 1;
+        }
+    }
+
+    void EstadoActivo()
+    {
+        spriteRenderer.sprite = PisaFono;
+
+        Debug.Log("FonoYActivo");
+        if (Input.GetKey(KeyCode.Y))
+        {
+            estadoBaldosa = EstadoInactivo;
+            scriptSerial.baldosaY = false;
         }
     }
 }

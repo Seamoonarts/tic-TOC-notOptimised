@@ -27,6 +27,9 @@ public class ColorVerdeA : MonoBehaviour
         if (scriptSerial.baldosaA == true)
         {
             estadoBaldosa = EstadoActivo;
+        } else
+        {
+            estadoBaldosa = EstadoInactivo;
         }
     }
 

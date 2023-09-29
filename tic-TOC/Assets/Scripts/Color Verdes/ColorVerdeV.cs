@@ -28,6 +28,10 @@ public class ColorVerdeV : MonoBehaviour
         {
             estadoBaldosa = EstadoActivo;
         }
+        else
+        {
+            estadoBaldosa = EstadoInactivo;
+        }
     }
 
     void EstadoInactivo()

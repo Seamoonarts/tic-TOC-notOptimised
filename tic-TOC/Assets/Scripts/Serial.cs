@@ -28,11 +28,12 @@ public class Serial : MonoBehaviour
     int leemeInaUnaVez;
     int leemeCDUnaVez;
     int leemeCAUnaVez;
+    int reactivoObra = 1;
     //int p = 1;
 
     int timepoTotalObra = 90;
     int tiempoCaosIntenso = 60;
-    float repeticionElementos = 8f;
+    float repeticionElementos = 12f;
 
     SpriteRenderer m_SpriteRenderer;
     public SpriteRenderer spriteRenderer;
@@ -142,6 +143,7 @@ public class Serial : MonoBehaviour
         baldosaV = true;
         if (Input.GetKey(KeyCode.V))  
         {
+            FindObjectOfType<AudioManager>().Pause("Llamada");
             telefonoActivo = false;
             luzActivo = true;
         }
@@ -155,6 +157,7 @@ public class Serial : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             Debug.Log("apreto a");
+            arduinoPort.WriteLine("luz0");
             luzActivo = false;
             cuantoLuz = 0;
             baldosaActivo = true;
@@ -182,18 +185,26 @@ public class Serial : MonoBehaviour
             if (cuantoFono == 1)
             {
                 baldosaU = true;
+                FindObjectOfType<AudioManager>().Play("Llamada");
+                cuantoFono = 5;
             }
             if (cuantoFono == 2)
             {
                 baldosaV = true;
+                FindObjectOfType<AudioManager>().Play("Llamada");
+                cuantoFono = 5;
             }
             if (cuantoFono == 3)
             {
                 baldosaX = true;
+                FindObjectOfType<AudioManager>().Play("Llamada");
+                cuantoFono = 5;
             }
             if (cuantoFono == 4)
             {
                 baldosaY = true;
+                FindObjectOfType<AudioManager>().Play("Llamada");
+                cuantoFono = 5;
             }
 
 
@@ -210,7 +221,7 @@ public class Serial : MonoBehaviour
                    }
                    //Debug.Log("Suena fono dice: " + cuantoFono);*/
         }
-        else {
+        if (!baldosaU && !baldosaV && !baldosaX && !baldosaY){
             FindObjectOfType<AudioManager>().Pause("Llamada");
             Falsos();
             luzActivo = true;
@@ -236,21 +247,25 @@ public class Serial : MonoBehaviour
             }*/
 
             arduinoPort.WriteLine("luz4");
-            if (cuantoFono == 1)
+            if (cuantoLuz == 1)
             {
                 baldosaA = true;
+                cuantoLuz = 5;
             }
-            if (cuantoFono == 2)
+            if (cuantoLuz == 2)
             {
                 baldosaB = true;
+                cuantoLuz = 5;
             }
-            if (cuantoFono == 3)
+            if (cuantoLuz == 3)
             {
                 baldosaD = true;
+                cuantoLuz = 5;
             }
-            if (cuantoFono == 4)
+            if (cuantoLuz == 4)
             {
                 baldosaE = true;
+                cuantoLuz = 5;
             }
         }
         
@@ -357,31 +372,28 @@ public class Serial : MonoBehaviour
     {
         if (baldosaActivo == false)
         {
-            //  RandomBaldosa();
             cuantoBaldosa = 3;
             baldosaActivo = true;
         }
     }
 
     void ReactivaObra() {
-            estadoInstalacion = EstadoTutorial;
-
+        while (reactivoObra == 1)
+        {
             CaosNoActivo();
             RandomFono();
             RandomLuz();
-          //  RandomBaldosa();
-
-            estadoInstalacion = EstadoTutorial;
             timerFono = 0f;
-            atendeElFono = 15f;
+            atendeElFono = 10f;
             timerLuz = 0f;
-            apagaLuz = 15f;
+            apagaLuz = 10f;
             leemeDoUnaVez = 1;
             leemePerdiUnaVez = 1;
             leemeTutoUnaVez = 1;
             leemeCDUnaVez = 1;
             leemeCAUnaVez = 1;
             leemeInaUnaVez = 1;
+            repeticionElementos = 12f;
 
             telefonoActivo = true;
             luzActivo = false;
@@ -390,6 +402,9 @@ public class Serial : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("Base");
             FindObjectOfType<AudioManager>().Play("Llamada");
             Debug.Log("Reactivo");
+            reactivoObra = 2;
+            estadoInstalacion = EstadoTutorial;
+        }
     }
 
     public void CaosActivo()
@@ -446,14 +461,30 @@ public class Serial : MonoBehaviour
             FindObjectOfType<AudioManager>().Stop("Caos");
             FindObjectOfType<AudioManager>().Stop("Base");
             FindObjectOfType<AudioManager>().Stop("Llamada");
+            CancelInvoke("RandomFono");
+            CancelInvoke("RandomLuz");
             CancelInvoke("RandomsYTruesFono");
             CancelInvoke("RandomsYTruesLuz");
             CancelInvoke("RandomsYTruesBaldosa");
+            CancelInvoke("SuenaFono");
+            CancelInvoke("PrendeLuz");
+            CancelInvoke("Falsos");
+            CancelInvoke("CaosIntenso");
+            CancelInvoke("LlamoPerdicion");
+            baldosaU = false;
+            baldosaV = false;
+            baldosaX = false;
+            baldosaY = false;
+            baldosaA = false;
+            baldosaB = false;
+            baldosaD = false;
+            baldosaE = false;
             spriteRenderer.sprite = FondoNegro;
             leemeInaUnaVez = 2;
+            Debug.Log("Frena obra");
+            Invoke("ReactivaObra", 20);   // TIEMPO DE DESCANSO
         }
-        Debug.Log("Frena obra");
-        Invoke("ReactivaObra", 30);   // TIEMPO DE DESCANSO
+        
     } 
 
     public void EstadoTutorial()
@@ -476,6 +507,7 @@ public class Serial : MonoBehaviour
             FindObjectOfType<AudioManager>().Stop("Caos");
             FindObjectOfType<AudioManager>().Stop("CaosIntenso");
             FindObjectOfType<AudioManager>().Stop("Perdicion");
+            reactivoObra = 1;
             leemeTutoUnaVez = 2;
             leemeDoUnaVez = 1;
         }
@@ -487,12 +519,12 @@ public class Serial : MonoBehaviour
         {
             spriteRenderer.sprite = FondoVacio;
             InvokeRepeating("RandomFono", 2f, repeticionElementos);
-            InvokeRepeating("RandomLuz", 2f, repeticionElementos);
+            InvokeRepeating("RandomLuz", 6f, repeticionElementos);
             InvokeRepeating("RandomsYTruesFono", 2f, repeticionElementos);
-            InvokeRepeating("RandomsYTruesLuz", 2f, repeticionElementos);
+            InvokeRepeating("RandomsYTruesLuz", 6f, repeticionElementos);
             InvokeRepeating("RandomsYTruesBaldosa", 14f, repeticionElementos);
-            InvokeRepeating("SuenaFono", 0, 8);
-            InvokeRepeating("PrendeLuz", 0, 10);
+            InvokeRepeating("SuenaFono", 0, 1);
+            InvokeRepeating("PrendeLuz", 0, 1);
             InvokeRepeating("Falsos", 0, 2);
             Invoke("CaosIntenso", tiempoCaosIntenso);                            //// CAMBIAR LLAMADO FIN DE OBRA E INTENSIDAD CUANDO REGULE LA DURACION DE LA OBRA
             Invoke("LlamoPerdicion", timepoTotalObra);
@@ -539,6 +571,7 @@ public class Serial : MonoBehaviour
     public void CaosIntenso()
     {
         intenso = true;
+        repeticionElementos = 4f;
         FindObjectOfType<AudioManager>().Play("Base");
         FindObjectOfType<AudioManager>().Play("CaosIntenso");
     }
@@ -547,8 +580,16 @@ public class Serial : MonoBehaviour
     {
         while (leemePerdiUnaVez == 1)
         {
+            repeticionElementos = 1.5f;
             FindObjectOfType<AudioManager>().Play("Caos");
             FindObjectOfType<AudioManager>().Play("Perdicion");
+            InvokeRepeating("RandomFono", 2f, repeticionElementos);
+            InvokeRepeating("RandomLuz", 5f, repeticionElementos);
+            InvokeRepeating("RandomsYTruesFono", 2f, repeticionElementos);
+            InvokeRepeating("RandomsYTruesLuz", 5f, repeticionElementos);
+            InvokeRepeating("RandomsYTruesBaldosa", 8f, repeticionElementos);
+            InvokeRepeating("SuenaFono", 0, 1);
+            InvokeRepeating("PrendeLuz", 0, 1);
             leemePerdiUnaVez = 2;
         }
 

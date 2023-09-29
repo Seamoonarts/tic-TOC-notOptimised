@@ -30,10 +30,15 @@ public class ColorRojaY : MonoBehaviour
         {
             estadoBaldosa = EstadoActivo;
         }
+        else
+        {
+            estadoBaldosa = EstadoInactivo;
+        }
     }
 
     void EstadoInactivo()
     {
+        spriteRenderer.sprite = GrillaRoja;
         if (Input.GetKey(KeyCode.Y))
         {
             spriteRenderer.sprite = BaldosaRoja;

@@ -29,11 +29,16 @@ public class ColorRojaU : MonoBehaviour
         if (scriptSerial.baldosaU == true)
         {
             estadoBaldosa = EstadoActivo;
-        } 
+        }
+        else
+        {
+            estadoBaldosa = EstadoInactivo;
+        }
     }
 
     void EstadoInactivo()
     {
+        spriteRenderer.sprite = GrillaRoja;
         if (Input.GetKey(KeyCode.U))
         {
             spriteRenderer.sprite = BaldosaRoja;
